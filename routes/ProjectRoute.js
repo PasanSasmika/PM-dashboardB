@@ -6,7 +6,6 @@ import { createProjectWithFile, getAllProjects } from '../controllers/ProjectCon
 
 const Projectrouter = express.Router();
 
-// Configure Multer for local disk storage
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads/');
@@ -18,10 +17,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-// This is the correct GET route to fetch all projects
 Projectrouter.get('/', getAllProjects);
 
-// The POST route remains the same
 Projectrouter.post('/', upload.single('file'), createProjectWithFile);
-
 export default Projectrouter;
