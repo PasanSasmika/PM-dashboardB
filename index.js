@@ -9,6 +9,7 @@ import { fileURLToPath } from 'url';
 
 import Userrouter from './routes/UserRoute.js';
 import Projectrouter from './routes/ProjectRoute.js';
+import Customerrouter from './routes/Customer.js';
 
 dotenv.config();
 
@@ -42,12 +43,11 @@ app.use((req, res, next) => {
   next();
 });
 
-// Serve static files from the 'uploads' directory
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// Mount the user and project routes
 app.use("/api/users", Userrouter);
 app.use("/api/projects", Projectrouter);
+app.use("/api/customers", Customerrouter);
 
 app.listen(
   5000,
