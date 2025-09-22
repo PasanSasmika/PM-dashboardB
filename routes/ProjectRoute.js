@@ -19,8 +19,10 @@ const upload = multer({ storage: storage });
 
 Projectrouter.get('/', getAllProjects);
 
-Projectrouter.post('/', upload.single('file'), createProjectWithFile);
+Projectrouter.post('/', upload.array('files'), createProjectWithFile);
 
 Projectrouter.put('/:id', updateProject);
 Projectrouter.delete('/:id', deleteProject);
+
+
 export default Projectrouter;

@@ -1,10 +1,6 @@
 import Project from "../models/Projects.js";
 
 export const createProjectWithFile = async (req, res) => {
-  if (!req.file) {
-    return res.status(400).json({ message: 'No file was uploaded.' });
-  }
-
   // Parse the project data from the form-data field
   let projectData;
   try {
@@ -14,28 +10,29 @@ export const createProjectWithFile = async (req, res) => {
   }
   
   try {
-    const filePath = req.file.path;
+    // Handle multiple files
+    const uploadedFiles = req.files || [];
     
     // Create the new project document
     const newProject = new Project({
       ...projectData,
-      files: [{
-        fileName: req.file.originalname,
-        url: `/${filePath}`,
-        fileType: req.file.mimetype,
-      }],
+      files: uploadedFiles.map(file => ({
+        fileName: file.originalname,
+        url: `/${file.path}`,
+        fileType: file.mimetype,
+      })),
     });
     
     await newProject.save();
 
     res.status(201).json({
-      message: 'Project and file created successfully',
+      message: 'Project and files created successfully',
       project: newProject,
     });
 
   } catch (error) {
     res.status(400).json({
-      message: 'Failed to create project and upload file',
+      message: 'Failed to create project and upload files',
       error: error.message,
     });
   }
