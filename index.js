@@ -10,6 +10,7 @@ import { fileURLToPath } from 'url';
 import Userrouter from './routes/UserRoute.js';
 import Projectrouter from './routes/ProjectRoute.js';
 import Customerrouter from './routes/Customer.js';
+import ResourcesRouter from './routes/Resources.js';
 
 dotenv.config();
 
@@ -48,6 +49,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use("/api/users", Userrouter);
 app.use("/api/projects", Projectrouter);
 app.use("/api/customers", Customerrouter);
+app.use("/api/resources", ResourcesRouter);
 
 app.listen(
   5000,
