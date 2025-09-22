@@ -2,7 +2,7 @@ import express from 'express';
 import multer from 'multer';
 import path from 'path';
 
-import { createProjectWithFile, getAllProjects } from '../controllers/ProjectController.js';
+import { createProjectWithFile, deleteProject, getAllProjects, updateProject } from '../controllers/ProjectController.js';
 
 const Projectrouter = express.Router();
 
@@ -20,4 +20,7 @@ const upload = multer({ storage: storage });
 Projectrouter.get('/', getAllProjects);
 
 Projectrouter.post('/', upload.single('file'), createProjectWithFile);
+
+Projectrouter.put('/:id', updateProject);
+Projectrouter.delete('/:id', deleteProject);
 export default Projectrouter;
