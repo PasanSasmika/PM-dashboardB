@@ -239,12 +239,12 @@ export const deleteProjectFromOrganization = async (req, res) => {
       return res.status(404).json({ message: 'Organization not found.' });
     }
 
-    const projectIndex = organization.projects.findIndex(p => p._id.toString() === projectId);
-    if (projectIndex === -1) {
+    const project = organization.projects.id(projectId);
+    if (!project) {
       return res.status(404).json({ message: 'Project not found.' });
     }
 
-    organization.projects.pull({ _id: projectId });
+    await project.deleteOne(); // Use deleteOne() instead of remove()
     await organization.save();
 
     res.status(200).json({ 
