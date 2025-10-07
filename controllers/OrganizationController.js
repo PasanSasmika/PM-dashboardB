@@ -230,7 +230,6 @@ export const addProjectToOrganization = async (req, res) => {
   }
 };
 
-// New: Delete project from organization
 export const deleteProjectFromOrganization = async (req, res) => {
   try {
     const { id: orgId, projectId } = req.params;
@@ -240,12 +239,12 @@ export const deleteProjectFromOrganization = async (req, res) => {
       return res.status(404).json({ message: 'Organization not found.' });
     }
 
-    const project = organization.projects.id(projectId);
-    if (!project) {
+    const projectIndex = organization.projects.findIndex(p => p._id.toString() === projectId);
+    if (projectIndex === -1) {
       return res.status(404).json({ message: 'Project not found.' });
     }
 
-    project.remove();
+    organization.projects.pull({ _id: projectId });
     await organization.save();
 
     res.status(200).json({ 
