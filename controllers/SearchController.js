@@ -1,7 +1,7 @@
 import Customer from "../models/Customers.js";
+import Organization from "../models/Organizations.js";
 import Project from "../models/Projects.js";
 import Resources from "../models/Resources.js";
-import Organization from "../models/Organization.js";
 
 // Global search across projects, customers, resources, and organizations
 export const searchAll = async (req, res) => {
