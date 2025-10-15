@@ -12,6 +12,7 @@ import Projectrouter from './routes/ProjectRoute.js';
 import Customerrouter from './routes/Customer.js';
 import ResourcesRouter from './routes/Resources.js';
 import Organizationrouter from './routes/OrganizationRoute.js';
+import searchrouter from './routes/Search.js';
 
 dotenv.config();
 
@@ -52,6 +53,7 @@ app.use("/api/projects", Projectrouter);
 app.use("/api/customers", Customerrouter);
 app.use("/api/resources", ResourcesRouter);
 app.use("/api/organizations", Organizationrouter);
+app.use("/api/search", searchrouter);
 
 app.listen(
   5000,
